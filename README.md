@@ -12,7 +12,7 @@ Faculty and students can utilize this tool for generating graphql service skelet
 
 ## Features
 
-1. Auto generation of advanced api templates
+1. Auto generation of introductory api templates (Apollo Server - GraphQL, Express, etc)
 2. Tie-ins to existing tools that we use throughout the course like ([create-react-app]())
 3. (Helio students) A way to let students pull competency assignments and commit them through their terminal
 4. Extendible by any repo that follows guidelines for templates or assignments
@@ -45,4 +45,4 @@ Expect things to change and break while we solidify the CLI.
 - [ ] Core - Default Templates &amp; Prompts
 
 ## License
-This particular repo utilizes the GNU GENERAL PUBLIC LICENSE V3 license. For more information read the LICENSE.txt file.
+We utilize the GNU GENERAL PUBLIC LICENSE V3 license. For more information read the LICENSE.txt file.
