@@ -10,16 +10,33 @@ class GitRepoManager {
     this.ensureCacheDirExists()
   }
 
-  checkCacheForRepo (repoName) {
+  async checkCacheForUpdates () {
 
   }
 
-  checkCacheForUpdates () {
+  checkCacheForRepo (templateString) {
+    return new Promise((resolve, reject) => {
+      if (!this._validTemplateString(templateString)) {
+        return reject(`We only support github URL's for now. (org-or-acct/some-repo)`)
+      }
 
+      resolve(fs.existsSync(this._formatCacheString(templateString)))
+    })
   }
 
-  cloneRepo (repoName) {
+  cloneRepo (templateString) {
+    return new Promise((resolve, reject) => {
+      if (!this._validTemplateString(templateString)) {
+        return reject(`We only support github URL's for now. (org-or-acct/some-repo)`)
+      }
 
+      downloadGitRepo(templateString, this._formatCacheString(templateString), { clone: true }, (err) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(true)
+      })
+    })
   }
 
   ensureCacheDirExists () {
@@ -29,13 +46,20 @@ class GitRepoManager {
         logger.info(`Created template cache at: ${this.cacheDir}`)
       }
     } catch (e) {
-      logger.error(e.message)
       throw e
     }
   }
 
-  updateRepo (repoName) {
+  async updateRepo (repoName) {
 
+  }
+
+  _formatCacheString (templateString) {
+    return path.resolve(this.cacheDir, templateString.split('/')[1])
+  }
+
+  _validTemplateString (templateString) {
+    return (templateString.split('/').length === 2)
   }
 }
 
