@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/UzC7XPe.png" alt="Helio Training" width="226" align="center"/> <span>&nbsp;v0.1.0</span>
+<img src="http://i.imgur.com/UzC7XPe.png" alt="Helio Training" width="226" align="center"/> <span>&nbsp;v0.1.1</span>
 
 ---------------
 
@@ -37,11 +37,11 @@ Expect things to change and break while we solidify the CLI.
 
 ## Roadmap / Features
 
-- [ ] Core - Git Template Manager
-- [ ] Core - CLI Interface
+- [X] Core - Git Template Manager
+- [X] Core - CLI Interface
 - [ ] Core - Template List
 - [ ] Core - Assignment List
-- [ ] Core - Metalsmith Integrations
+- [X] Core - Metalsmith Integrations
 - [ ] Core - Default Templates &amp; Prompts
 
 ## License
