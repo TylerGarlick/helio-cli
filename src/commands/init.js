@@ -34,7 +34,7 @@ export const run = async (args) => {
 
     let promptResults = {}
     if (typeof templateSettings === 'object' && templateSettings.hasOwnProperty('prompts')) {
-      promptResults = await inquirer.prompt(templateSettings.prompts({ dirName: projectNameFolder }))
+      promptResults = await inquirer.prompt(templateSettings.prompts({ dirName: (args.directory === '.') ? projectNameFolder : args.directory }))
     }
 
     logger.info('All questions answered. Generating your project from the template...')
@@ -43,9 +43,9 @@ export const run = async (args) => {
     // TODO: Replace with dynamic closing message from Template repos settings
     logger.warn(`\n-=-=-=-=-=-=-=-=-=-=-=-=-\n`)
     logger.success(`\nProject generated successfully! Don't forget to install dependencies...\n`)
-    logger.info(`  cd ${projectNameFolder} && npm install`)
+    logger.info(`  cd ${args.directory} && npm install`)
     logger.info(`\nOR\n`)
-    logger.info(`  cd ${projectNameFolder} && yarn install`)
+    logger.info(`  cd ${args.directory} && yarn install`)
   } catch (e) {
     const error = (typeof e === 'object') ? e.message : e
     logger.error(error)
@@ -56,7 +56,7 @@ export const run = async (args) => {
   Yargs Module
  */
 
-export const command = 'init [template] [dir]'
+export const command = 'init [template] [directory]'
 export const desc = 'Generate a new GraphQL CLI project from a template into a directory.'
 export const builder = {
   directory: {
@@ -71,7 +71,7 @@ export const builder = {
 }
 export const handler = async (argv) => {
   const apiDir = argv.directory
-  const apiPath = path.resolve(__dirname, apiDir)
+  const apiPath = path.resolve(process.cwd(), apiDir)
 
   try {
     if (fs.existsSync(apiPath)) {
