@@ -21,9 +21,7 @@ Faculty and students can utilize this tool for generating graphql service skelet
 
 Templates are essentially skeletons that will create a baseline for an application. Some of the base template repo's we have available currently are:
 
-- [Apollo GraphQL Server w/ Mongoose]()
-- [Apollo GraphQL Server w/ Sequelize]()
-- [Apollo GraphQL Server w/ MemoryStore]()
+- [Apollo GraphQL Server w/ Mongoose](https://github.com/helio-training-tools/helio-cli-mongoose)
 
 ## Assignment Repos
 
