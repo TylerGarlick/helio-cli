@@ -1,8 +1,9 @@
-import downloadGitRepo from 'download-git-repo'
+import clone from 'git-clone'
 import fs from 'fs'
 import os from 'os'
 import path from 'path'
 import logger from './logger'
+import { exec } from 'child_process'
 
 class GitRepoManager {
   constructor () {
@@ -10,27 +11,23 @@ class GitRepoManager {
     this.ensureCacheDirExists()
   }
 
-  async checkCacheForUpdates () {
-
-  }
-
   checkCacheForRepo (templateString) {
     return new Promise((resolve, reject) => {
       if (!this._validTemplateString(templateString)) {
-        return reject(`We only support github URL's for now. (org-or-acct/some-repo)`)
+        return reject(this._githubOnlySupport())
       }
 
-      resolve(fs.existsSync(this._formatCacheString(templateString)))
+      resolve(fs.existsSync(this.formatCacheString(templateString)))
     })
   }
 
   cloneRepo (templateString) {
     return new Promise((resolve, reject) => {
       if (!this._validTemplateString(templateString)) {
-        return reject(`We only support github URL's for now. (org-or-acct/some-repo)`)
+        return reject(this._githubOnlySupport())
       }
 
-      downloadGitRepo(templateString, this._formatCacheString(templateString), { clone: true }, (err) => {
+      clone(this._getUrl(templateString), this.formatCacheString(templateString), { checkout: 'master', shallow: true }, (err) => {
         if (err) {
           return reject(err)
         }
@@ -40,22 +37,40 @@ class GitRepoManager {
   }
 
   ensureCacheDirExists () {
-    try {
-      if (!fs.existsSync(this.cacheDir)) {
-        fs.mkdirSync(this.cacheDir)
-        logger.info(`Created template cache at: ${this.cacheDir}`)
-      }
-    } catch (e) {
-      throw e
+    if (!fs.existsSync(this.cacheDir)) {
+      fs.mkdirSync(this.cacheDir)
+      logger.info(`Created template cache at: ${this.cacheDir}`)
     }
   }
 
-  async updateRepo (repoName) {
+  updateRepo (templateString) {
+    return new Promise((resolve, reject) => {
+      if (!this._validTemplateString(templateString)) {
+        return reject(this._githubOnlySupport())
+      }
 
+      exec(`cd ${this.formatCacheString(templateString)} && git pull --rebase`, (err, stdout) => {
+        if (err) {
+          return reject(err)
+        }
+
+        resolve(stdout)
+      })
+    })
   }
 
-  _formatCacheString (templateString) {
+  formatCacheString (templateString) {
     return path.resolve(this.cacheDir, templateString.split('/')[1])
+  }
+
+  _getUrl (templateString) {
+    // TODO: Extend this function to support other hosts
+    return `git@github.com:${templateString}.git`
+  }
+
+  // TODO: Remove this when we support multiple hosts
+  _githubOnlySupport () {
+    return `We only support github URL's for now. (org-or-acct/some-repo)`
   }
 
   _validTemplateString (templateString) {

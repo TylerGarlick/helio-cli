@@ -1,5 +1,6 @@
 import Metalsmith from 'metalsmith'
-import layouts from 'metalsmith-layouts'
+import inPlace from 'metalsmith-in-place'
+import { spawn } from 'child_process'
 
 export default (templateDir, destDir, options, clean = true) => {
   return new Promise((resolve, reject) => {
@@ -8,8 +9,10 @@ export default (templateDir, destDir, options, clean = true) => {
       .source(templateDir)
       .destination(destDir)
       .clean(clean)
-      .use(layouts({
-        engine: 'handlebars'
+      .use(inPlace({
+        engineOptions: {
+          cache: false
+        }
       }))
       .build((err) => {
         if (err) {
