@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/UzC7XPe.png" alt="Helio Training" width="226" align="center"/> <span>&nbsp;v0.1.2</span>
+<img src="http://i.imgur.com/UzC7XPe.png" alt="Helio Training" width="226" align="center"/> <span>&nbsp;v0.1.3</span>
 
 ---------------
 
