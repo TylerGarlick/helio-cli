@@ -13,6 +13,10 @@ export default {
     console.log(chalk.cyan(info))
   },
 
+  success: (message) => {
+    console.log(chalk.green(message))
+  },
+
   warn: (warning) => {
     console.warn(chalk.yellow(warning))
   }
