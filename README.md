@@ -37,11 +37,11 @@ Expect things to change and break while we solidify the CLI.
 
 ## Roadmap / Features
 
-- [ ] Core - Git Template Manager
-- [ ] Core - CLI Interface
+- [X] Core - Git Template Manager
+- [X] Core - CLI Interface
 - [ ] Core - Template List
 - [ ] Core - Assignment List
-- [ ] Core - Metalsmith Integrations
+- [X] Core - Metalsmith Integrations
 - [ ] Core - Default Templates &amp; Prompts
 
 ## License
