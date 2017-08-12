@@ -1,11 +1,11 @@
 {
   "name": "helio-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An application for setting up various projects from graphql services, react applications, and assignments",
   "main": "src/cli.js",
   "repository": "https://github.com/helio-training-tools/helio-cli",
   "author": "Aric Beagley <abeagley@heliotraining.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bin": {
     "helio-cli": "bin/helio-cli"
   },
